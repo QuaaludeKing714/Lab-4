@@ -1,0 +1,109 @@
+// Author Josh Nichols, Ahmad AlSadi
+// CPSC 121 Lab 4
+// <2/27/2018>
+
+
+#include <iostream>
+
+using namespace std;
+
+int menu() {
+	cout << "List of Menu" << endl;
+	cout << "1. Display simple text" << endl;
+	cout << "2. Print numbers between " << endl;
+	cout << "3. Check whether a number is prime or not" << endl;
+	cout << "4. Get least common denominator of two numbers " << endl;
+	cout << "5. Get squared opposite of a number" << endl;
+	cout << "6. Exit" << endl;
+	cout << "Enter your choice : ";
+	int choice;
+	cin >> choice;
+	return choice;
+}
+void hello() {
+	cout << "Hello, world!" << endl;
+}
+void printBetween(int a, int b) {
+	int i;
+	for (i = a; i <= b; i++)
+		cout << i << " ";
+	cout << endl;
+}
+bool isPrime(int n)
+{
+	if (n == 2) {
+		return true;
+	}
+	if (n == 3) { return true; }
+	if (n % 2 == 0) { return false; }
+	if (n % 3 == 0) { return false; }
+
+	long int i = 5;
+	long int w = 2;
+	while (i * i <= n) {
+		if (n % i == 0)
+			return 0;
+		i += w;
+		w = 6 - w;
+	}
+	return true;
+}
+int gcd(int a, int b)
+{
+	if (b == 0)
+		return a;
+	return gcd(b, a%b);
+}
+
+int leastCommonDenominator(int a, int b)
+{
+	return b * a / gcd(a, b);
+}
+void squaredOpposite(double &n) {
+	n = -(n * n);
+}
+int main()
+{
+	int choice, a, b, number;
+	while (1) {
+		choice = menu();
+		if (choice == 1)
+			hello();
+		else if (choice == 2)
+		{
+			cout << "Enter lower limit : ";
+			cin >> a;
+			cout << "Enter upper limit : ";
+			cin >> b;
+			printBetween(a, b);
+		}
+		else if (choice == 3) {
+			cout << "Enter number to check whether it is prime or not : ";
+			cin >> number;
+			if (isPrime(number))
+				cout << "Given number is a prime" << endl;
+			else
+				cout << "Given number is not a prime" << endl;
+		}
+		else if (choice == 4) {
+			cout << "Enter first number : ";
+			cin >> a;
+			cout << "Enter second number : ";
+			cin >> b;
+			int result = leastCommonDenominator(a, b);
+			cout << "Least common denominator of " << a << " & " << b << " is " << result << endl;
+		}
+		else if (choice == 5) {
+			double numb;
+			cout << "Enter number to find the squared opposite : ";
+			cin >> numb;
+			squaredOpposite(numb);
+			cout << "The squared opposite is " << numb << endl;
+		}
+		else if (choice == 6)
+			break;
+		else
+			cout << "Please enter number between 1 to 6" << endl;
+	}
+	return 0;
+}
